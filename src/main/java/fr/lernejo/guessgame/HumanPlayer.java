@@ -21,9 +21,9 @@ public class HumanPlayer implements Player
     public void respond(boolean lowerOrGreater)
     {
         if(lowerOrGreater)
-            logger.log("C'est plus !");
+            logger.log("Le nombre est plus grand");
         else
-            logger.log("C'est moins !");
+            logger.log("Le nombre est plus petit");
     }
 }
 

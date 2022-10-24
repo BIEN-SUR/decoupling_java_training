@@ -23,22 +23,32 @@ public class Simulation
         long guess = player.askNextGuess();
         if (guess == numberToGuess)
         {
-            logger.log("Bravo, vous avez trouvé le nombre mystère !");
             return true;
         }
-        if(guess > numberToGuess)
+        if (guess > numberToGuess)
             player.respond(false);
         else
             player.respond(true);
         return false;
     }
 
-    public void loopUntilPlayerSucceed()
+    public void loopUntilPlayerSucceed(int maxTry)
     {
-        while (!nextRound())
-        {
-            nextRound();
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < maxTry; i++) {
+            if(nextRound()) {
+                long endTime = System.currentTimeMillis();
+                long duration = (endTime - startTime) / 1000;
+                logger.log("Bravo, vous avez trouvé le nombre mystère !");
+                logger.log("Vous avez trouvé " + numberToGuess + " en " + (i + 1) + " coups et " + duration + " secondes");
+                return;
+            }
         }
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime) / 1000;
+        logger.log("Vous avez perdu, le nombre mystère était " + numberToGuess);
+        logger.log("Vous n'avez pas trouvé en " + maxTry + " coups , cela vous a pris " + duration + " secondes");
     }
 }
+
 
